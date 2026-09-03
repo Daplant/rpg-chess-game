@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Chess - Strategic Battle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app"></div>
+    
+    <!-- Game Screens -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-container">
+            <h1 class="title">⚔️ RPG CHESS ⚔️</h1>
+            <p class="subtitle">Strategic Battle Arena</p>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="gameState.showScreen('character-select')">📖 New Game</button>
+                <button class="btn btn-secondary" onclick="gameState.showScreen('multiplayer-menu')">🌐 Multiplayer</button>
+                <button class="btn btn-secondary" onclick="gameState.showScreen('settings')">⚙️ Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="character-select" class="screen">
+        <div class="menu-container">
+            <h2>Choose Your Character</h2>
+            <div class="character-grid">
+                <div class="character-card" onclick="gameState.selectCharacter('warrior')">
+                    <div class="char-sprite warrior-sprite"></div>
+                    <h3>Warrior</h3>
+                    <p>Strong Rooks & Knights</p>
+                    <p class="stats">ATK: 8 | DEF: 7</p>
+                </div>
+                <div class="character-card" onclick="gameState.selectCharacter('mage')">
+                    <div class="char-sprite mage-sprite"></div>
+                    <h3>Mage</h3>
+                    <p>Powerful Bishops & Queens</p>
+                    <p class="stats">ATK: 9 | DEF: 5</p>
+                </div>
+                <div class="character-card" onclick="gameState.selectCharacter('rogue')">
+                    <div class="char-sprite rogue-sprite"></div>
+                    <h3>Rogue</h3>
+                    <p>Swift Pawns & Knights</p>
+                    <p class="stats">ATK: 7 | DEF: 6</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="gameState.showScreen('main-menu')">← Back</button>
+        </div>
+    </div>
+
+    <div id="multiplayer-menu" class="screen">
+        <div class="menu-container">
+            <h2>Multiplayer Mode</h2>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="gameState.createLANGame()">🖥️ Create LAN Game</button>
+                <button class="btn btn-secondary" onclick="gameState.joinLANGame()">🔗 Join LAN Game</button>
+                <button class="btn btn-secondary" onclick="gameState.showScreen('main-menu')">← Back</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings" class="screen">
+        <div class="menu-container">
+            <h2>Settings</h2>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" id="sound-toggle" checked> Sound Effects
+                </label>
+                <label>
+                    <input type="checkbox" id="music-toggle" checked> Background Music
+                </label>
+                <label>
+                    Volume: <input type="range" min="0" max="100" value="70">
+                </label>
+            </div>
+            <button class="btn btn-secondary" onclick="gameState.showScreen('main-menu')">← Back</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="player-info">
+                <div class="player player-white">
+                    <span class="player-name" id="player-white-name">Player</span>
+                    <span class="player-level" id="player-white-level">Lvl 1</span>
+                    <div class="health-bar">
+                        <div class="health-fill" id="player-white-health"></div>
+                    </div>
+                </div>
+                <div class="vs-indicator">VS</div>
+                <div class="player player-black">
+                    <span class="player-name" id="player-black-name">AI</span>
+                    <span class="player-level" id="player-black-level">Lvl 1</span>
+                    <div class="health-bar">
+                        <div class="health-fill" id="player-black-health"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div id="chess-board" class="chess-board"></div>
+            <div class="game-sidebar">
+                <div class="captured-pieces">
+                    <h3>Captured Pieces</h3>
+                    <div id="captured-list"></div>
+                </div>
+                <div class="game-log">
+                    <h3>Battle Log</h3>
+                    <div id="game-log" class="log-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button class="btn btn-secondary" onclick="gameState.undoMove()">↶ Undo</button>
+            <button class="btn btn-secondary" onclick="gameState.resign()">🏳️ Resign</button>
+            <button class="btn btn-secondary" onclick="gameState.mainMenu()">⌂ Menu</button>
+        </div>
+    </div>
+
+    <div id="game-over" class="screen">
+        <div class="menu-container game-over-container">
+            <h2 id="game-over-title">Victory!</h2>
+            <div class="game-stats">
+                <p id="game-over-stats"></p>
+            </div>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="gameState.playAgain()">🔄 Play Again</button>
+                <button class="btn btn-secondary" onclick="gameState.mainMenu()">⌂ Main Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/pieces.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/game-state.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
